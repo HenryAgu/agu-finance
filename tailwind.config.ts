@@ -9,7 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-          "home-background-image": "url('/assets/payment.jpg')",
+        "home-background-image": "url('/assets/payment.png')",
+      },
+      colors: {
+        primaryButton: "#d8cbbf",
+        secondaryButton: "#d8cbbf",
       },
     },
   },
