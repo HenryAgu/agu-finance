@@ -5,12 +5,14 @@ export default function Home() {
     <main className="bg-home-background-image bg-no-repeat bg-center bg-cover h-screen w-full">
       <div className="p-6 flex items-center justify-between">
         <div>
-          <p className="font-bold text-xl">Agu-finance</p>
+          <p className="font-bold text-xl">Agu-Finance</p>
         </div>
         <div>
-          <button className="bg-primaryButton hover:shadow-lg px-12 py-2 font-medium rounded-md shadow-sm lg:text-base">
-            Login
-          </button>
+          <Link href="/login">
+            <button className="bg-primaryButton border-primaryButton duration-500 ease-in-out border-2 hover:border-dashed hover:border-black px-12 py-2 font-medium rounded-md shadow-sm lg:text-base">
+              Login
+            </button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col gap-y-10 justify-center items-center mt-40">

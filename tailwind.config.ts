@@ -14,6 +14,7 @@ const config: Config = {
       colors: {
         primaryButton: "#d8cbbf",
         secondaryButton: "#d8cbbf",
+        hyperlink: "#5ca2d6",
       },
     },
   },
