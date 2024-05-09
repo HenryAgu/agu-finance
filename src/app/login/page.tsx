@@ -39,6 +39,7 @@ const page = () => {
             type="text"
             placeholder="Enter your username"
             value={username}
+            name="username"
             className="p-2 border border-black rounded-md text-sm"
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -56,6 +57,7 @@ const page = () => {
             type="password"
             placeholder="Enter your password"
             value={password}
+            name="password"
             className="p-2 border border-black rounded-md text-sm"
             onChange={(e) => setPassword(e.target.value)}
           />
