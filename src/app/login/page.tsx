@@ -7,6 +7,7 @@ const page = () => {
   const [password, setPassword] = useState<string>("");
   const [usernameError, setUsernameError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     if (username === "" && password === "") {
@@ -17,14 +18,14 @@ const page = () => {
     } else if (password === "") {
       setPasswordError(true);
     } else {
-      setUsernameError(false);
-      setPasswordError(false);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setUsernameError(false);
+        setPasswordError(false);
+      },2000)
     }
   };
-
-  const handleOnchange = (e: FormEvent)=>{
-    
-  }
   return (
     <div className="flex flex-col gap-y-5 items-center h-full mt-40">
       <div>
@@ -72,7 +73,7 @@ const page = () => {
           ) : null}
         </div>
         <button className="bg-black text-white p-2.5 rounded-md text-sm">
-          Login
+          {loading ? "Loggin in..." : "Login"}
         </button>
       </form>
       <p>
