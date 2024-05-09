@@ -21,6 +21,10 @@ const page = () => {
       setPasswordError(false);
     }
   };
+
+  const handleOnchange = (e: FormEvent)=>{
+    
+  }
   return (
     <div className="flex flex-col gap-y-5 items-center h-full mt-40">
       <div>
@@ -41,7 +45,7 @@ const page = () => {
             value={username}
             name="username"
             className="p-2 border border-black rounded-md text-sm"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => { setUsername(e.target.value); setUsernameError(false); }}
           />
           {usernameError ? (
             <span className="text-xs text-red-600">
@@ -59,7 +63,7 @@ const page = () => {
             value={password}
             name="password"
             className="p-2 border border-black rounded-md text-sm"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {setPassword(e.target.value); setPasswordError(false)}}
           />
           {passwordError ? (
             <span className="text-xs text-red-600">
