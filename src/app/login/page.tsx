@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 
 const page = () => {
@@ -8,9 +9,15 @@ const page = () => {
   const [usernameError, setUsernameError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
+
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     if (username === "" && password === "") {
+      setUsernameError(true);
+      setPasswordError(true);
+    } else if (username.length <= 1 && password.length <= 1) {
       setUsernameError(true);
       setPasswordError(true);
     } else if (username === "") {
@@ -23,9 +30,11 @@ const page = () => {
         setLoading(false);
         setUsernameError(false);
         setPasswordError(false);
-      },2000)
+        router.push("/dashboard");
+      }, 2000);
     }
   };
+
   return (
     <div className="flex flex-col gap-y-5 items-center h-full mt-40">
       <div>
@@ -46,7 +55,10 @@ const page = () => {
             value={username}
             name="username"
             className="p-2 border border-black rounded-md text-sm"
-            onChange={(e) => { setUsername(e.target.value); setUsernameError(false); }}
+            onChange={(e) => {
+              setUsername(e.target.value);
+              setUsernameError(false);
+            }}
           />
           {usernameError ? (
             <span className="text-xs text-red-600">
@@ -64,7 +76,10 @@ const page = () => {
             value={password}
             name="password"
             className="p-2 border border-black rounded-md text-sm"
-            onChange={(e) => {setPassword(e.target.value); setPasswordError(false)}}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError(false);
+            }}
           />
           {passwordError ? (
             <span className="text-xs text-red-600">
