@@ -21,14 +21,38 @@ const Transaction = () => {
       transactionAmount: "1,200",
       transactionStatus: "completed",
     },
+    {
+      date: date,
+      transactionType: "Spend",
+      transactionAmount: "1,200",
+      transactionStatus: "failed",
+    },
+    {
+      date: date,
+      transactionType: "Fund",
+      transactionAmount: "1,200",
+      transactionStatus: "pending",
+    },
   ];
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "completed":
+        return "text-green-600";
+      case "pending":
+        return "text-yellow-600";
+      case "failed":
+        return "text-red-600";
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className="overflow-x-auto">
-      <table className="table-auto min-w-full">
+      <table className="table-auto w-full">
         <thead>
           <tr className="bg-gray-200">
-            <th className="px-4 py-2">#</th>
             <th className="px-4 py-2">Date</th>
             <th className="px-4 py-2">Type</th>
             <th className="px-4 py-2">Amount (₦)</th>
@@ -36,9 +60,8 @@ const Transaction = () => {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction, index: number) => (
+          {transactions.map((transaction) => (
             <tr className="text-center">
-              <td className="border px-4 py-2">{index + 1}</td>
               <td className="border px-4 py-2">{transaction.date}</td>
               <td className="border px-4 py-2">
                 {transaction.transactionType}
@@ -46,7 +69,11 @@ const Transaction = () => {
               <td className="border px-4 py-2">
                 {transaction.transactionAmount}
               </td>
-              <td className="border px-4 py-2">
+              <td
+                className={`border px-4 py-2 font-bold ${getStatusColor(
+                  transaction.transactionStatus
+                )}`}
+              >
                 {transaction.transactionStatus}
               </td>
             </tr>
