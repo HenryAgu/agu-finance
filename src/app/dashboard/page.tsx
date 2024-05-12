@@ -1,4 +1,7 @@
 import React from "react";
+import Transaction from "@/components/Transaction";
+import Header from "@/components/Header";
+import Link from "next/link";
 
 const page = () => {
   return (
@@ -8,17 +11,17 @@ const page = () => {
           <p className="font-bold text-xl">Agu-Finance</p>
         </div>
         <div>
-          <button className="bg-black text-white py-2.5 px-8 rounded-md text-sm">Logout</button>
+          <Link href="/">
+            <button className="bg-black text-white py-2.5 px-8 rounded-md text-sm">
+              Logout
+            </button>
+          </Link>
         </div>
       </div>
       <div className="p-4 lg:p-12">
-        <h1 className="text-4xl lg:text-6xl font-bold my-4 lg:my-8">Welcome, Henry</h1>
-        <div>
-          <div>1</div>
-          <div>2</div>
-        </div>
+        <Header />
+        <Transaction />
       </div>
-
     </div>
   );
 };
