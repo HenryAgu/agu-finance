@@ -1,7 +1,12 @@
-import Link from "next/link";
-import React from "react";
+"use client";
+import { useState } from "react";
+import { Modal } from "./Modal";
+import Fund from "./Fund";
+import Send from "./Send";
 
 const Header = () => {
+  const [isSendModalOpen, setIsSendModalOpen] = useState<boolean>(false);
+  const [isFundModalOpen, setIsFundModalOpen] = useState<boolean>(false);
   return (
     <div className="w-full">
       <h1 className="text-4xl lg:text-6xl font-bold mb-4 lg:mb-8">
@@ -15,21 +20,37 @@ const Header = () => {
           <h1 className="text-4xl font-bold">₦40,000.00</h1>
         </div>
         <div className="flex justify-start gap-x-4">
-          <Link href="">
-            <button className="basis-1/4 bg-black text-white font-medium flex items-center px-8 p-10 border-2 border-black rounded-lg text-xs uppercase ">
-              send
-            </button>
-          </Link>
-          <Link href="">
-            <button className="basis-1/4 bg-black text-white font-medium flex items-center px-8 p-10 border-2 border-black rounded-lg text-xs uppercase ">
-              fund
-            </button>
-          </Link>
-          <Link href="">
-            <button className="basis-1/4 flex items-center p-8 px-10 rounded-lg text-xl font-medium uppercase border-4 border-slate-600 text-black">
-              +
-            </button>
-          </Link>
+          <button
+            className="basis-1/4 bg-black text-white font-medium flex items-center px-8 p-10 border-2 border-black rounded-lg text-xs uppercase"
+            onClick={() => setIsSendModalOpen(true)}
+          >
+            send
+          </button>
+          <Modal
+            isOpen={isSendModalOpen}
+            onClose={() => setIsSendModalOpen(false)}
+          >
+            <div className="w-full">
+              <Send />
+            </div>
+          </Modal>
+          <button
+            className="basis-1/4 bg-black text-white font-medium flex items-center px-8 p-10 border-2 border-black rounded-lg text-xs uppercase"
+            onClick={() => setIsFundModalOpen(true)}
+          >
+            fund
+          </button>
+          <Modal
+            isOpen={isFundModalOpen}
+            onClose={() => setIsFundModalOpen(false)}
+          >
+            <div className="w-full">
+              <Fund/>
+            </div>
+          </Modal>
+          <button className="basis-1/4 flex items-center p-8 px-10 rounded-lg text-xl font-medium uppercase border-4 border-slate-600 text-black">
+            +
+          </button>
         </div>
       </div>
     </div>

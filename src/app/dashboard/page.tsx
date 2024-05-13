@@ -1,9 +1,11 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Transaction from "@/components/Transaction";
 import Header from "@/components/Header";
 import Link from "next/link";
 
 const page = () => {
+  
   return (
     <div className="w-full">
       <div className="p-4 lg:p-6 flex items-center justify-between">
@@ -22,6 +24,7 @@ const page = () => {
         <Header />
         <Transaction />
       </div>
+      
     </div>
   );
 };
