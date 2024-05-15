@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../lib/store";
 import { setInputValue } from "../lib/features/inputValue/InputValueSlice";
@@ -15,7 +15,7 @@ const page = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
-  const inputValue = useSelector((state: RootState) => state.inputValue.value);
+  const username = useSelector((state: RootState) => state.inputValue.value);
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setInputValue(e.target.value));
     setUsernameError(false);
@@ -23,13 +23,13 @@ const page = () => {
 
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
-    if (inputValue === "" && password === "") {
+    if (username === "" && password === "") {
       setUsernameError(true);
       setPasswordError(true);
-    } else if (inputValue.length <= 1 && password.length <= 1) {
+    } else if (username.length <= 1 && password.length <= 1) {
       setUsernameError(true);
       setPasswordError(true);
-    } else if (inputValue === "") {
+    } else if (username === "") {
       setUsernameError(true);
     } else if (password === "") {
       setPasswordError(true);
@@ -43,6 +43,11 @@ const page = () => {
       }, 2000);
     }
   };
+
+  useEffect(() => {
+   localStorage.setItem('username', JSON.stringify(username));
+  }, [username]);
+  
 
   return (
     <div className="flex flex-col gap-y-5 items-center h-full mt-40">
@@ -61,7 +66,7 @@ const page = () => {
           <input
             type="text"
             placeholder="Enter your username"
-            value={inputValue}
+            value={username}
             name="username"
             className="p-2 border border-black rounded-md text-sm"
             onChange={handleInputChange}

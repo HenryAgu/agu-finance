@@ -5,8 +5,11 @@ export interface InputValueState {
   value: string;
 }
 
+const storedValue = localStorage.getItem("username");
+const initialValue = storedValue !== null ? JSON.parse(storedValue) : "";
+
 const initialState: InputValueState = {
-  value: "",
+  value: initialValue,
 };
 
 export const inputValueSlice = createSlice({

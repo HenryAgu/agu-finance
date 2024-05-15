@@ -60,8 +60,8 @@ const Transaction = () => {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
-            <tr className="text-center">
+          {transactions.map((transaction,index) => (
+            <tr className="text-center" key={index}>
               <td className="border px-4 py-2">{transaction.date}</td>
               <td className="border px-4 py-2">
                 {transaction.transactionType}
