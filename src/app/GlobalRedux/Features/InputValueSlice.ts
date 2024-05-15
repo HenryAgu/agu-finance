@@ -1,12 +1,12 @@
 "use client"
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface InputValueState {
   value: string;
 }
 
 const initialState: InputValueState = {
-  value: localStorage.getItem('inputValue') || '',
+  value: "",
 };
 
 export const inputValueSlice = createSlice({
@@ -15,8 +15,7 @@ export const inputValueSlice = createSlice({
   reducers: {
     setInputValue: (state, action) =>{
       state.value = action.payload;
-      localStorage.setItem('inputValue',action.payload); 
-    }
+    },
   },
 });
 

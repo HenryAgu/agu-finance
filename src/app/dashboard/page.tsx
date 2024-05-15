@@ -5,9 +5,9 @@ import Header from "@/components/Header";
 import { useRouter } from "next/router";
 
 const page = () => {
-  const router = useRouter()
+  // const router = useRouter()
   const handleLogout = () => {
-    router.push("/login");
+    // router.push("/login");
   }
   return (
     <div className="w-full">
