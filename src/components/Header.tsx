@@ -4,13 +4,15 @@ import { Modal } from "./Modal";
 import Fund from "./Fund";
 import Send from "./Send";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/GlobalRedux/store";
+import { RootState } from "@/app/lib/store";
 
 const Header = () => {
   const [isSendModalOpen, setIsSendModalOpen] = useState<boolean>(false);
   const [isFundModalOpen, setIsFundModalOpen] = useState<boolean>(false);
 
-  const username = useSelector((state:RootState)=> state.inputValue.value);
+  const value = useSelector((state: RootState) => state.inputValue.value);
+
+  const username = value.charAt(0).toUpperCase() + value.slice(1);
 
   return (
     <div className="w-full">
@@ -50,7 +52,7 @@ const Header = () => {
             onClose={() => setIsFundModalOpen(false)}
           >
             <div className="w-full">
-              <Fund/>
+              <Fund />
             </div>
           </Modal>
           <button className="basis-1/4 flex items-center p-8 px-10 rounded-lg text-xl font-medium uppercase border-4 border-slate-600 text-black">

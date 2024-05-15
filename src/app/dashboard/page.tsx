@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 import Transaction from "@/components/Transaction";
 import Header from "@/components/Header";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-  // const router = useRouter()
+  const router = useRouter();
   const handleLogout = () => {
-    // router.push("/login");
-  }
+    setTimeout(() => {
+      router.push("/login");
+    }, 2000);
+  };
   return (
     <div className="w-full">
       <div className="p-4 lg:p-6 flex items-center justify-between">
@@ -16,7 +18,10 @@ const page = () => {
           <p className="font-bold text-xl">Agu-Finance</p>
         </div>
         <div>
-          <button className="bg-black text-white py-2.5 px-8 rounded-md text-sm" onClick={handleLogout}>
+          <button
+            className="bg-black text-white py-2.5 px-8 rounded-md text-sm"
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </div>

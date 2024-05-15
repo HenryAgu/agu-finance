@@ -3,11 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../GlobalRedux/store";
-import { setInputValue } from "../GlobalRedux/Features/InputValueSlice";
+import { RootState } from "../lib/store";
+import { setInputValue } from "../lib/features/inputValue/InputValueSlice";
 
 const page = () => {
-  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [usernameError, setUsernameError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
@@ -16,13 +15,13 @@ const page = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
-  const inputValue =  useSelector((state:RootState)=> state.inputValue.value);
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>)=>{
+  const inputValue = useSelector((state: RootState) => state.inputValue.value);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setInputValue(e.target.value));
-  } 
+    setUsernameError(false);
+  };
 
   const handleLogin = (e: FormEvent) => {
-
     e.preventDefault();
     if (inputValue === "" && password === "") {
       setUsernameError(true);
@@ -64,7 +63,6 @@ const page = () => {
             placeholder="Enter your username"
             value={inputValue}
             name="username"
-            required
             className="p-2 border border-black rounded-md text-sm"
             onChange={handleInputChange}
           />
@@ -82,7 +80,6 @@ const page = () => {
             type="password"
             placeholder="Enter your password"
             value={password}
-            required
             name="password"
             className="p-2 border border-black rounded-md text-sm"
             onChange={(e) => {
