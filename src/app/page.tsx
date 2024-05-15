@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+// store
+
+
 export default function Home() {
   return (
     <main className="bg-home-background-image bg-no-repeat bg-center bg-cover h-screen w-full">

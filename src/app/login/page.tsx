@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../GlobalRedux/store";
+import { setInputValue } from "../GlobalRedux/Features/InputValueSlice";
 
 const page = () => {
   const [username, setUsername] = useState<string>("");
@@ -12,15 +15,22 @@ const page = () => {
 
   const router = useRouter();
 
+  const dispatch = useDispatch();
+  const inputValue =  useSelector((state:RootState)=> state.inputValue.value);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>)=>{
+    dispatch(setInputValue(e.target.value));
+  } 
+
   const handleLogin = (e: FormEvent) => {
+
     e.preventDefault();
-    if (username === "" && password === "") {
+    if (inputValue === "" && password === "") {
       setUsernameError(true);
       setPasswordError(true);
-    } else if (username.length <= 1 && password.length <= 1) {
+    } else if (inputValue.length <= 1 && password.length <= 1) {
       setUsernameError(true);
       setPasswordError(true);
-    } else if (username === "") {
+    } else if (inputValue === "") {
       setUsernameError(true);
     } else if (password === "") {
       setPasswordError(true);
@@ -52,13 +62,11 @@ const page = () => {
           <input
             type="text"
             placeholder="Enter your username"
-            value={username}
+            value={inputValue}
             name="username"
+            required
             className="p-2 border border-black rounded-md text-sm"
-            onChange={(e) => {
-              setUsername(e.target.value);
-              setUsernameError(false);
-            }}
+            onChange={handleInputChange}
           />
           {usernameError ? (
             <span className="text-xs text-red-600">
@@ -74,6 +82,7 @@ const page = () => {
             type="password"
             placeholder="Enter your password"
             value={password}
+            required
             name="password"
             className="p-2 border border-black rounded-md text-sm"
             onChange={(e) => {
