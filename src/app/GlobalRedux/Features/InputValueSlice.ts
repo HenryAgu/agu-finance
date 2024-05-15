@@ -6,7 +6,7 @@ export interface InputValueState {
 }
 
 const initialState: InputValueState = {
-  value: "",
+  value: localStorage.getItem('inputValue') || '',
 };
 
 export const inputValueSlice = createSlice({
@@ -14,7 +14,8 @@ export const inputValueSlice = createSlice({
   initialState,
   reducers: {
     setInputValue: (state, action) =>{
-      state.value = action.payload; 
+      state.value = action.payload;
+      localStorage.setItem('inputValue',action.payload); 
     }
   },
 });

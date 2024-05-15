@@ -1,11 +1,14 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Transaction from "@/components/Transaction";
 import Header from "@/components/Header";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const page = () => {
-  
+  const router = useRouter()
+  const handleLogout = () => {
+    router.push("/login");
+  }
   return (
     <div className="w-full">
       <div className="p-4 lg:p-6 flex items-center justify-between">
@@ -13,18 +16,15 @@ const page = () => {
           <p className="font-bold text-xl">Agu-Finance</p>
         </div>
         <div>
-          <Link href="/">
-            <button className="bg-black text-white py-2.5 px-8 rounded-md text-sm">
-              Logout
-            </button>
-          </Link>
+          <button className="bg-black text-white py-2.5 px-8 rounded-md text-sm" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </div>
       <div className="p-4 lg:p-12">
         <Header />
         <Transaction />
       </div>
-      
     </div>
   );
 };
