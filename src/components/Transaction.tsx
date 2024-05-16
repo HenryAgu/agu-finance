@@ -67,7 +67,7 @@ const Transaction = () => {
                 {transaction.transactionType}
               </td>
               <td className="border px-4 py-2">
-                {transaction.transactionAmount}
+              ₦ {transaction.transactionAmount}
               </td>
               <td
                 className={`border px-4 py-2 font-bold text-sm ${getStatusColor(

@@ -21,6 +21,10 @@ const page = () => {
     setUsernameError(false);
   };
 
+  useEffect(() => {
+    localStorage.setItem('username', JSON.stringify(username));
+   }, [username]);
+
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     if (username === "" && password === "") {
@@ -43,11 +47,6 @@ const page = () => {
       }, 2000);
     }
   };
-
-  useEffect(() => {
-   localStorage.setItem('username', JSON.stringify(username));
-  }, [username]);
-  
 
   return (
     <div className="flex flex-col gap-y-5 items-center h-full mt-40">

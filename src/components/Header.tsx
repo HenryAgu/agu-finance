@@ -13,18 +13,19 @@ const Header = () => {
   const value = useSelector((state: RootState) => state.inputValue.value);
 
   const username = value.charAt(0).toUpperCase() + value.slice(1);
+  const balance = useSelector((state: RootState) => state.balanceValue.value).toLocaleString();
 
   return (
     <div className="w-full">
       <h1 className="text-4xl lg:text-6xl font-bold mb-4 lg:mb-8">
-        Welcome, {username}
+        Welcome Back, {username}
       </h1>
       <div className="flex flex-col lg:flex-row items-center md:items-start gap-y-5 lg:gap-x-8 mb-4 md:mb-8 lg:mb-8">
         <div className="flex flex-col gap-y-4 p-4 lg:px-8 lg:py-4 shadow-xl border-2 h-fit w-full md:w-[450px] lg:w-[450px] rounded-lg">
           <p className="uppercase  text-xs font-normal text-slate-400">
             current balance (ngn)
           </p>
-          <h1 className="text-4xl font-bold">₦40,000.00</h1>
+          <h1 className="text-4xl font-bold">₦{balance}</h1>
         </div>
         <div className="flex justify-start gap-x-4">
           <button
