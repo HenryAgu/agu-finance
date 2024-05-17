@@ -21,10 +21,6 @@ const page = () => {
     setUsernameError(false);
   };
 
-  useEffect(() => {
-    localStorage.setItem('username', JSON.stringify(username));
-   }, [username]);
-
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     if (username === "" && password === "") {
