@@ -24,8 +24,7 @@ const Header = () => {
     } else {
       setGreeting("Good evening");
     }
-    localStorage.setItem("balance", JSON.stringify(balance));
-  }, [balance]);
+  }, []);
 
   return (
     <div className="w-full">
