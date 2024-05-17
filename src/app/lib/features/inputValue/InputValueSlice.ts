@@ -5,11 +5,7 @@ export interface InputValueState {
   value: string;
 }
 
-let storedValue = "";
-if (typeof window !== "undefined") {
-  storedValue = localStorage.getItem("username") || "";
-}
-const initialValue = storedValue;
+const initialValue = typeof window !== "undefined" ? localStorage.getItem("username") || "" : "";
 
 const initialState: InputValueState = {
   value: initialValue,

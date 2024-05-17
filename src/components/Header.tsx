@@ -1,5 +1,5 @@
 "use client";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "./Modal";
 import Fund from "./Fund";
 import Send from "./Send";
@@ -12,23 +12,20 @@ const Header = () => {
   const [isFundModalOpen, setIsFundModalOpen] = useState<boolean>(false);
 
   const value = useSelector((state: RootState) => state.inputValue.value);
-
   const username = value.charAt(0).toUpperCase() + value.slice(1);
-  const balance = useSelector(
-    (state: RootState) => state.balanceValue.value
-  ).toLocaleString();
+  const balance = useSelector((state: RootState) => state.balanceValue.value);
 
   useEffect(() => {
     let currentTime: number = new Date().getHours();
-    console.log(currentTime);
     if (currentTime >= 5 && currentTime < 12) {
       setGreeting("Good morning");
-  } else if (currentTime >= 12 && currentTime < 17) {
+    } else if (currentTime >= 12 && currentTime < 17) {
       setGreeting("Good afternoon");
-  } else {
+    } else {
       setGreeting("Good evening");
-  }
-  }, []);
+    }
+    localStorage.setItem("balance", JSON.stringify(balance));
+  }, [balance]);
 
   return (
     <div className="w-full">
@@ -40,23 +37,9 @@ const Header = () => {
           <p className="uppercase  text-xs font-normal text-slate-400">
             current balance (ngn)
           </p>
-          <h1 className="text-4xl font-bold">₦{balance}</h1>
+          <h1 className="text-4xl font-bold">₦{balance.toLocaleString()}</h1>
         </div>
         <div className="flex justify-start gap-x-4">
-          <button
-            className="basis-1/4 bg-black text-white font-medium flex items-center px-8 p-10 border-2 border-black rounded-lg text-xs uppercase"
-            onClick={() => setIsSendModalOpen(true)}
-          >
-            send
-          </button>
-          <Modal
-            isOpen={isSendModalOpen}
-            onClose={() => setIsSendModalOpen(false)}
-          >
-            <div className="w-full">
-              <Send />
-            </div>
-          </Modal>
           <button
             className="basis-1/4 bg-black text-white font-medium flex items-center px-8 p-10 border-2 border-black rounded-lg text-xs uppercase"
             onClick={() => setIsFundModalOpen(true)}
@@ -71,6 +54,21 @@ const Header = () => {
               <Fund />
             </div>
           </Modal>
+          <button
+            className="basis-1/4 bg-black text-white font-medium flex items-center px-8 p-10 border-2 border-black rounded-lg text-xs uppercase"
+            onClick={() => setIsSendModalOpen(true)}
+          >
+            send
+          </button>
+          <Modal
+            isOpen={isSendModalOpen}
+            onClose={() => setIsSendModalOpen(false)}
+          >
+            <div className="w-full">
+              <Send />
+            </div>
+          </Modal>
+
           <button className="basis-1/4 flex items-center p-8 px-10 rounded-lg text-xl font-medium uppercase border-4 border-slate-600 text-black">
             +
           </button>

@@ -15,7 +15,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                 >
                     <IoCloseOutline />
                 </button>
+                <div>
                 {children}
+                </div>
             </div>
         </div>,
         document.body
