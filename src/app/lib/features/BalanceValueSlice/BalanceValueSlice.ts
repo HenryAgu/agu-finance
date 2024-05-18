@@ -14,18 +14,20 @@ if (typeof window !== "undefined") {
   storedBalance = isNaN(parsedBalance) ? 0 : parsedBalance;
 }
 
-let storedTransactions: Transaction[] = [];
-const storedTransactionsString = localStorage.getItem("transactions");
-if(storedTransactionsString){
-  storedTransactions = JSON.parse(storedTransactionsString);
-}
+const getInitialTransactions = (): Transaction[] => {
+  if (typeof window !== "undefined") {
+    const storedTransactionsString = localStorage.getItem("transactions");
+    return storedTransactionsString ? JSON.parse(storedTransactionsString) : [];
+  }
+  return [];
+};
 
 const initialValue = storedBalance;
 
 
 const initialState: fundState = {
   value: initialValue,
-  transactions: storedTransactions,
+  transactions: getInitialTransactions(),
 };
 
 export const balanceValueSlice = createSlice({
