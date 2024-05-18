@@ -1,41 +1,43 @@
-# AGU-FINANCE
+# AGU Finance Web Application
 
-This application allows users to manage their funds by adding and removing amounts. The current balance is stored in the browser's local storage, so it persists across sessions.
+Welcome to AGU Finance - your all-in-one finance management web application! This application is designed to help you manage your finances effectively, providing features for budget tracking, expense management, and financial goal setting.
 
-# Fund Management Application
+## Live Demo
 
-This application allows users to manage their funds by adding and removing amounts. The current balance is stored in the browser's local storage, so it persists across sessions.
+Check out the live demo of AGU Finance [here](https://agu-finance.vercel.app/).
+
+## Features
+
+- **Budget Tracking**: Monitor your income and expenses with intuitive budget tracking features.
+- **Expense Management**: Categorize and track your expenses to gain insights into your spending habits.
+- **Financial Goals**: Set achievable financial goals and track your progress towards them.
+- **User Authentication**: Securely sign up and log in to access your personalized financial dashboard.
+- **Responsive Design**: Enjoy a seamless experience across various devices, including desktops, tablets, and smartphones.
 
 ## Technologies Used
 
-- TypeScript: The application is written in TypeScript, a statically typed superset of JavaScript that adds types and other features to the language.
-- Next.js: The application uses Next.js, a React framework for building JavaScript applications.
-- Redux: The application uses Redux for state management. The state includes the current balance, which is updated when funds are added or removed.
-- Tailwind CSS: The application uses Tailwind CSS, a utility-first CSS framework for rapidly building custom user interfaces.
-- React Icons: The application uses React Icons, a library that provides a wide variety of icons as React components.
-- Local Storage: The application uses the browser's local storage API to persist the balance across sessions.
+AGU Finance is built using modern web technologies:
 
-## Application Structure
 
-The application is structured around a Redux slice, fundSlice, which manages the state of the funds.
+  - Nextjs
+  - TailwindCSS
+  - TypeScript
+  - Bootstrap for styling
+  - Local storage
 
-The fundSlice includes two actions:
+- **Deployment**:
+  - Vercel (frontend deployment)
 
-- updateFunds: This action takes a number as a payload and adds it to the current balance. It then updates the balance in local storage.
-- decreaseFunds: This action takes a number as a payload and subtracts it from the current balance. It then updates the balance in local storage.
+## Installation
 
-The initial state of the funds is loaded from local storage when the application starts.
+To run AGU Finance locally, follow these steps:
+- Clone the repository to your local machine.
+- Navigate to the project directory.
+- Install the dependencies with npm install.
+- Start the application with npm run dev.
+- The application will be available at http://localhost:3000.
 
-## How to Run the Application
+## Contact
 
-1. Clone the repository to your local machine.
-2. Navigate to the project directory.
-3. Install the dependencies with npm install.
-4. Start the application with npm run dev.
-5. The application will be available at http://localhost:3000.
+For any inquiries or support, please contact [Henry Agu](mailto:aguhenrychuks@gmail.com).
 
-## Future Improvements
-
-- Add user authentication to allow multiple users to manage their funds separately.
-- Add a transaction history to track the changes to the balance over time.
-- Add input validation to prevent invalid amounts from being added or removed.
