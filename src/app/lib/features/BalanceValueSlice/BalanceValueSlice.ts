@@ -42,6 +42,7 @@ export const balanceValueSlice = createSlice({
       state.transactions.push(newTransaction);
       if (typeof window !== "undefined") {
         localStorage.setItem("balance", state.value.toString());
+        localStorage.setItem("transactions", JSON.stringify(state.transactions));
       }
     },
     decreaseBalance: (state, action: PayloadAction<number>) => {
@@ -54,6 +55,7 @@ export const balanceValueSlice = createSlice({
       state.transactions.push(newTransaction);
       if (typeof window !== "undefined") {
         localStorage.setItem("balance", state.value.toString());
+        localStorage.setItem("transactions", JSON.stringify(state.transactions));
       }
     },
   },

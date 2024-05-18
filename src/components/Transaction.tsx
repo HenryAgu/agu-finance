@@ -29,9 +29,9 @@ const Transaction = () => {
         </h1>
       </div>
       {transactions.length === 0 ? (
-        <div className="text-center text-base text-slate-400">
-          <p>No transaction found</p>
-        </div>
+        <p className="text-center text-base text-slate-400">
+          No transaction found
+        </p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table-auto w-full">
