@@ -7,6 +7,7 @@ import Successful from "./Successful";
 const Send = () => {
   const [sendValue, setSendValue] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [disableButton, setDisableButton] = useState<boolean>(false);
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue: number = parseFloat(e.target.value.replace(/[^0-9]/g, ""));
     setSendValue(newValue);
@@ -16,14 +17,18 @@ const Send = () => {
 
   const handleSendFunction = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    dispatch(decreaseBalance(sendValue));
+    if (sendValue <= 0) {
+      setDisableButton(true);
+    } else {
+      setIsSubmitted(true);
+      dispatch(decreaseBalance(sendValue));
+    }
   };
 
   return (
     <>
       {isSubmitted ? (
-        <Successful type="sent" amount={sendValue}/>
+        <Successful type="sent" amount={sendValue} />
       ) : (
         <form
           className="flex flex-col items-center justify-center gap-y-2 w-full mb-8"
@@ -43,7 +48,7 @@ const Send = () => {
               name="amount"
             />
           </div>
-          <button className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
+          <button disabled={disableButton} className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
             Send
           </button>
         </form>

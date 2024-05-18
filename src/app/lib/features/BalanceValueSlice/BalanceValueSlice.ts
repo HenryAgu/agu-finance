@@ -1,5 +1,7 @@
 "use client";
 
+import { fundState } from "@/types/FundState";
+import { Transaction } from "@/types/Transaction";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface BalanceValueState {
@@ -12,10 +14,18 @@ if (typeof window !== "undefined") {
   storedBalance = isNaN(parsedBalance) ? 0 : parsedBalance;
 }
 
+let storedTransactions: Transaction[] = [];
+const storedTransactionsString = localStorage.getItem("transactions");
+if(storedTransactionsString){
+  storedTransactions = JSON.parse(storedTransactionsString);
+}
+
 const initialValue = storedBalance;
 
-const initialState: BalanceValueState = {
+
+const initialState: fundState = {
   value: initialValue,
+  transactions: storedTransactions,
 };
 
 export const balanceValueSlice = createSlice({
@@ -24,12 +34,24 @@ export const balanceValueSlice = createSlice({
   reducers: {
     increaseBalance: (state, action: PayloadAction<number>) => {
       state.value += action.payload;
+      const newTransaction: Transaction = {
+        type: "fund",
+        value: action.payload,
+        status: "successful"
+      }
+      state.transactions.push(newTransaction);
       if (typeof window !== "undefined") {
         localStorage.setItem("balance", state.value.toString());
       }
     },
     decreaseBalance: (state, action: PayloadAction<number>) => {
       state.value -= action.payload;
+      const newTransaction: Transaction = {
+        type: "transfer",
+        value: action.payload,
+        status: "successful"
+      }
+      state.transactions.push(newTransaction);
       if (typeof window !== "undefined") {
         localStorage.setItem("balance", state.value.toString());
       }

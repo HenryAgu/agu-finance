@@ -7,6 +7,7 @@ import Successful from "./Successful";
 const Fund = () => {
   const [fundValue, setFundValue] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [disableButton, setDisableButton] = useState<boolean>(false);
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue: number = parseFloat(e.target.value.replace(/[^0-9.]/g, ""));
     setFundValue(newValue);
@@ -15,14 +16,18 @@ const Fund = () => {
 
   const handleFundFunction = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(increaseBalance(fundValue));
-    setIsSubmitted(true);
+    if (fundValue <= 0) {
+      setDisableButton(true);
+    } else {
+      dispatch(increaseBalance(fundValue));
+      setIsSubmitted(true);
+    }
   };
 
   return (
     <>
       {isSubmitted ? (
-        <Successful amount={fundValue} type="funded"/>
+        <Successful amount={fundValue} type="funded" />
       ) : (
         <form
           className="flex flex-col items-center justify-center gap-y-2 w-full mb-8"
@@ -42,7 +47,7 @@ const Fund = () => {
               name="amount"
             />
           </div>
-          <button className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
+          <button disabled={disableButton} className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
             Fund
           </button>
         </form>
