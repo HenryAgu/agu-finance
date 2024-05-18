@@ -1,23 +1,25 @@
 import { increaseBalance } from "@/app/lib/features/BalanceValueSlice/BalanceValueSlice";
 import React, { ChangeEvent } from "react";
 import { useState, FormEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Successful from "./Successful";
+import { RootState } from "@/app/lib/store";
 
 const Fund = () => {
   const [fundValue, setFundValue] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue: number = parseFloat(e.target.value.replace(/[^0-9.]/g, ""));
     setFundValue(newValue);
   };
   const dispatch = useDispatch();
+  const balance = useSelector((state: RootState) => state.balanceValue.value);
 
   const handleFundFunction = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (fundValue <= 0) {
-      setDisableButton(true);
+    if (fundValue < 50) {
+      setError("You cannot fund below ₦50");
     } else {
       dispatch(increaseBalance(fundValue));
       setIsSubmitted(true);
@@ -47,7 +49,8 @@ const Fund = () => {
               name="amount"
             />
           </div>
-          <button disabled={disableButton} className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
+          <span className="text-xs text-red-600">{error}</span>
+          <button className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
             Fund
           </button>
         </form>

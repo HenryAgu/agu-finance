@@ -1,24 +1,28 @@
 import { decreaseBalance } from "@/app/lib/features/BalanceValueSlice/BalanceValueSlice";
 import React, { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Successful from "./Successful";
+import { RootState } from "@/app/lib/store";
 
 const Send = () => {
   const [sendValue, setSendValue] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue: number = parseFloat(e.target.value.replace(/[^0-9]/g, ""));
     setSendValue(newValue);
   };
 
+  const balance = useSelector((state:RootState)=> state.balanceValue.value)
   const dispatch = useDispatch();
 
   const handleSendFunction = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (sendValue <= 0) {
-      setDisableButton(true);
+    if (sendValue < 100) {
+      setError("You cannot transfer below ₦100");
+    }else if(sendValue > balance){
+      setError("Insufficient funds");
     } else {
       setIsSubmitted(true);
       dispatch(decreaseBalance(sendValue));
@@ -48,7 +52,10 @@ const Send = () => {
               name="amount"
             />
           </div>
-          <button disabled={disableButton} className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
+          <span className="text-xs text-red-600">
+              {error}
+            </span>
+          <button className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
             Send
           </button>
         </form>
