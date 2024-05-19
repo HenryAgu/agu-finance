@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../lib/store";
-import { setInputValue } from "../lib/features/inputValue/InputValueSlice";
+import { RootState } from "@/applications/store";
+import { setInputValue } from "@/applications/inputValue/InputValueSlice";
 
 const page = () => {
   const [password, setPassword] = useState<string>("");
