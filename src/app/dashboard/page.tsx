@@ -36,8 +36,8 @@ export default page;
 
 import { useEffect } from "react";
 import { Modal } from "../../components/ui/Modal";
-import FundModal from "../../components/FundModal";
-import SendModal from "../../components/SendModal";
+import FundModal from "./FundModal/FundModal";
+import SendModal from "./SendModal/SendModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/applications/store";
 

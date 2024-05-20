@@ -1,60 +1,57 @@
-import { decreaseBalance } from "@/applications/BalanceValueSlice/BalanceValueSlice";
-import React, { ChangeEvent, FormEvent } from "react";
-import { useState } from "react";
+import { increaseBalance } from "@/applications/BalanceValueSlice/BalanceValueSlice";
+import React, { ChangeEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SuccessfulModal from "./SuccessfulModal";
+import SuccessfulModal from "@/components/SuccessfulModal";
 import { RootState } from "@/applications/store";
 
-const Send = () => {
-  const [sendValue, setSendValue] = useState<number>(0);
+const Fund = () => {
+  const [fundValue, setFundValue] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue: number = parseFloat(e.target.value.replace(/[^0-9]/g, ""));
-    setSendValue(newValue);
+    const newValue: number = parseFloat(e.target.value.replace(/[^0-9.]/g, ""));
+    setFundValue(newValue);
   };
-
-  const balance = useSelector((state: RootState) => state.balanceValue.value);
   const dispatch = useDispatch();
+  const balance = useSelector((state: RootState) => state.balanceValue.value);
 
-  const handleSendFunction = (e: FormEvent<HTMLFormElement>) => {
+  const handleFundFunction = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (sendValue < 100) {
-      setError("You cannot transfer below ₦100");
-    } else if (sendValue > balance) {
-      setError("Insufficient funds");
+    if (fundValue < 50) {
+      setError("You cannot fund below ₦50");
     } else {
+      dispatch(increaseBalance(fundValue));
       setIsSubmitted(true);
-      dispatch(decreaseBalance(sendValue));
     }
   };
 
   return (
     <>
       {isSubmitted ? (
-        <SuccessfulModal type="sent" amount={sendValue} />
+        <SuccessfulModal amount={fundValue} type="funded" />
       ) : (
         <form
           className="flex flex-col items-center justify-center gap-y-2 w-full mb-8"
-          onSubmit={handleSendFunction}
+          onSubmit={handleFundFunction}
         >
           <h3 className="uppercase text-xs text-black font-medium">
-            send funds
+            fund wallet
           </h3>
           <div className="flex items-center gap-x-1">
             <label htmlFor="">₦</label>
             <input
               type="text"
-              placeholder="Enter amount"
-              value={sendValue}
+              value={fundValue}
               onChange={handleOnchange}
+              placeholder="Enter amount"
               className="py-1.5 px-2 w-full border border-black text-sm"
               name="amount"
             />
           </div>
           <span className="text-xs text-red-600">{error}</span>
           <button className="bg-black text-white py-2.5 px-10 rounded-md text-xs uppercase">
-            Send
+            Fund
           </button>
         </form>
       )}
@@ -62,4 +59,4 @@ const Send = () => {
   );
 };
 
-export default Send;
+export default Fund;
