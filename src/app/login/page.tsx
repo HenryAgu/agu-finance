@@ -96,6 +96,10 @@ const page = () => {
         <button className="bg-black text-white p-2.5 rounded-md text-sm">
           {loading ? "Loggin in..." : "Login"}
         </button>
+        <span className="text-center text-xs">
+          Don't have an account?
+          <Link href="/signup" className="ml-1 text-green-700">Sign up</Link>
+        </span>
       </form>
       <p>
         Go back
