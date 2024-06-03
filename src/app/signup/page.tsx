@@ -2,22 +2,34 @@
 import Link from "next/link";
 import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { ID, account } from "../appwrite";
+import { Toaster, toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  const router = useRouter();
 
   async function handleSignup(e: FormEvent) {
     try {
       await account.create(ID.unique(), email, password);
+      setEmail("");
+      setPassword("");
+      setError("");
+      toast("Signup successful!")
+      router.push("/login")
     } catch (e) {
       console.error;
+      setError('An error occurred. Please try again.');
     }
   }
   return (
     <div className="flex flex-col gap-y-5 items-center h-full mt-40">
+      <Toaster/>
       <div>
         <h1 className="font-bold text-2xl lg:text-3xl">Signup Page</h1>
       </div>
@@ -48,7 +60,7 @@ const page = () => {
             Password
           </label>
           <input
-            type="text"
+            type="password"
             placeholder="Enter your password"
             value={password}
             name="username"
@@ -61,6 +73,7 @@ const page = () => {
             </span>
           ) : null}
         </div>
+        <span className="text-red-700 text-xs">{error}</span>
         <button
           className="bg-black text-white p-2.5 rounded-md text-sm"
           type="button"
