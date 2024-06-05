@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/applications/store";
 import { setInputValue } from "@/applications/inputValue/InputValueSlice";
 import { account } from "../appwrite";
-import { error } from "console";
+import { Toaster, toast } from "sonner";
+
+interface User {}
 
 const page = () => {
   const [email, setEmail] = useState<string>("");
@@ -15,8 +17,17 @@ const page = () => {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const router = useRouter();
+  console.log({user});
+
+  useEffect(() => {
+    async function getUser() {
+      setUser(await account.get());
+    }
+    getUser();
+  }, []);
 
   const dispatch = useDispatch();
   const username = useSelector((state: RootState) => state.inputValue.value);
@@ -24,40 +35,52 @@ const page = () => {
     dispatch(setInputValue(e.target.value));
     setUsernameError(false);
   };
-  
 
-async function handleLogin(e: FormEvent) {
-    try{
-      await account.createEmailPasswordSession(email, password)
-    }catch(e){
-      console.error(e)
+  async function handleLogin(e: FormEvent) {
+    try {
+      await account.createEmailPasswordSession(email, password);
+      setUser(await account.get());
+      setEmail("");
+      setPassword("");
+      toast("Login successful!",{
+        className:"text-green-700"
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    if(user){
+      router.push("/dashboard");
     }
     if (username === "" && password === "" && email === "") {
       setUsernameError(true);
       setPasswordError(true);
-      setEmailError(true)
-    } else if (username.length <= 1 && password.length <= 1 && email.length <= 1) {
+      setEmailError(true);
+    } else if (
+      username.length <= 1 &&
+      password.length <= 1 &&
+      email.length <= 1
+    ) {
       setUsernameError(true);
       setPasswordError(true);
-      setEmailError(true)
+      setEmailError(true);
     } else if (username === "") {
       setUsernameError(true);
     } else if (password === "") {
       setPasswordError(true);
-    }else if(email === ""){
+    } else if (email === "") {
       setEmailError(true);
     } else {
       setLoading(true);
       setLoading(false);
       setUsernameError(false);
       setPasswordError(false);
-      setEmailError(false)
-      router.push("/dashboard");
+      setEmailError(false);
     }
   }
 
   return (
     <div className="flex flex-col gap-y-5 items-center h-full mt-40">
+      <Toaster />
       <div>
         <h1 className="font-bold text-2xl lg:text-3xl">Login Page</h1>
       </div>

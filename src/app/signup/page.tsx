@@ -20,11 +20,17 @@ const page = () => {
       setEmail("");
       setPassword("");
       setError("");
-      toast("Signup successful!")
-      router.push("/login")
-    } catch (e) {
+      toast("Signup successful!",{
+        className:"text-green-700"
+      })
+      await router.push("/login")
+    } catch (e: any) {
       console.error;
-      setError('An error occurred. Please try again.');
+      if (e.response && e.response.status === 409) {
+        setError("Email already exists.");
+      } else {
+        setError("An error occurred. Please try again.");
+      }
     }
   }
   return (

@@ -4,13 +4,21 @@ import { useRouter } from "next/navigation";
 
 const page = () => {
   const router = useRouter();
-  const handleLogout = () => {
-    setTimeout(() => {
+
+  async function handleLogout(){
+    try{
+      await account.deleteSession("current");
       router.push("/login");
-    }, 2000);
-  };
+      toast("Logged out successfully!",{
+        className:"text-red-700"
+      });
+    } catch(e){
+      console.error(e);
+    }
+  }
   return (
     <div className="w-full">
+      <Toaster/>
       <div className="p-4 lg:p-6 flex items-center justify-between">
         <div>
           <p className="font-bold text-xl">Agu-Finance</p>
@@ -40,6 +48,8 @@ import FundModal from "./FundModal/FundModal";
 import SendModal from "./SendModal/SendModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/applications/store";
+import { account } from "../appwrite";
+import { Toaster, toast } from "sonner";
 
 const Header = () => {
   const [greeting, setGreeting] = useState<string>("Welcome");
