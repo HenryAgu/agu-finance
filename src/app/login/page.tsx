@@ -7,6 +7,7 @@ import { RootState } from "@/applications/store";
 import { setInputValue } from "@/applications/inputValue/InputValueSlice";
 import { account } from "../appwrite";
 import { Toaster, toast } from "sonner";
+import { setUser } from "@/applications/UserSlice/UserSlice";
 
 interface User {}
 
@@ -17,20 +18,21 @@ const page = () => {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [user, setUser] = useState<User | null>(null);
+
+  const dispatch = useDispatch();
+  const username = useSelector((state: RootState) => state.inputValue.value);
+  const user = useSelector((state:RootState)=> state.userValue.user);
 
   const router = useRouter();
   console.log({user});
 
   useEffect(() => {
     async function getUser() {
-      setUser(await account.get());
+      dispatch(setUser(await account.get()));
     }
     getUser();
   }, []);
 
-  const dispatch = useDispatch();
-  const username = useSelector((state: RootState) => state.inputValue.value);
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setInputValue(e.target.value));
     setUsernameError(false);
@@ -40,6 +42,7 @@ const page = () => {
     try {
       await account.createEmailPasswordSession(email, password);
       setUser(await account.get());
+      router.push("/dashboard");
       setEmail("");
       setPassword("");
       toast("Login successful!",{
@@ -47,9 +50,6 @@ const page = () => {
       });
     } catch (e) {
       console.error(e);
-    }
-    if(user){
-      router.push("/dashboard");
     }
     if (username === "" && password === "" && email === "") {
       setUsernameError(true);

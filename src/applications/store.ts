@@ -2,11 +2,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import inputValueReducer from "@/applications/inputValue/InputValueSlice";
 import balanceValueReducer from "@/applications/BalanceValueSlice/BalanceValueSlice";
+import userValueReducer  from '@/applications/UserSlice/UserSlice';
+
+
 
 export const store = configureStore({
   reducer: {
     inputValue: inputValueReducer,
     balanceValue: balanceValueReducer,
+    userValue: userValueReducer,
   },
 });
 

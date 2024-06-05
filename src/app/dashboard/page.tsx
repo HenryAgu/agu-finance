@@ -4,10 +4,19 @@ import { useRouter } from "next/navigation";
 
 const page = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState)=> state.userValue.user);
+
+  useEffect(()=>{
+      if(user === null){
+        router.push("/");
+      }
+  },[user])
 
   async function handleLogout(){
     try{
       await account.deleteSession("current");
+      dispatch(setUser(!user))
       router.push("/login");
       toast("Logged out successfully!",{
         className:"text-red-700"
@@ -46,10 +55,11 @@ import { useEffect } from "react";
 import { Modal } from "../../components/ui/Modal";
 import FundModal from "./FundModal/FundModal";
 import SendModal from "./SendModal/SendModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/applications/store";
 import { account } from "../appwrite";
 import { Toaster, toast } from "sonner";
+import { setUser } from "@/applications/UserSlice/UserSlice";
 
 const Header = () => {
   const [greeting, setGreeting] = useState<string>("Welcome");
