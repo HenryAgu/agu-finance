@@ -2,10 +2,10 @@
 
 Welcome to AGU Finance - your all-in-one finance management web application! This application is designed to help you manage your finances effectively, providing features for budget tracking, expense management, and financial goal setting.
 
-![Screenshot 2024-05-18 220027](https://github.com/HenryAgu/agu-finance/assets/74037448/64a21027-e98a-4fbe-8377-4c2a46e380be)
-![Screenshot 2024-06-05 132548](https://github.com/HenryAgu/agu-finance/assets/74037448/98d2c8d5-b493-4eaf-8c71-f936399b2a23)
-![Screenshot 2024-05-18 220051](https://github.com/HenryAgu/agu-finance/assets/74037448/9e96ed38-3037-45d6-a5ca-82b9b996cef7)
-![Screenshot 2024-05-18 220129](https://github.com/HenryAgu/agu-finance/assets/74037448/d91c5bc7-105e-4089-9903-3e660eda5e8a)
+![Screenshot 2024-05-18 220129](https://github.com/HenryAgu/agu-finance/assets/74037448/23971526-9afb-4efd-b4c3-68ea778a8cb5)
+![Screenshot 2024-05-18 220051](https://github.com/HenryAgu/agu-finance/assets/74037448/66c75c77-d592-4ff9-831f-2df7bf5b15d1)
+![Screenshot 2024-05-18 220027](https://github.com/HenryAgu/agu-finance/assets/74037448/babb1176-f2ae-4cef-bf2b-1ed036032053)
+
 
 ## Live Demo
 
