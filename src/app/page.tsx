@@ -19,7 +19,7 @@ export default function Home() {
         <h1 className="text-black text-center text-5xl w-11/12 font-bold lg:text-7xl lg:tracking-widest lg:leading-none">
           Best finance for <br /> Africa's Professionals
         </h1>
-        <Link href="/signup">
+        <Link href="/login">
           <button className="bg-secondaryButton hover:shadow-lg px-16 py-3 font-medium rounded-md shadow-sm lg:text-lg">
             Get started
           </button>

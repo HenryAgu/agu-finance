@@ -5,7 +5,6 @@ import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/applications/store";
 import { setInputValue } from "@/applications/inputValue/InputValueSlice";
-import { account } from "../appwrite";
 import { Toaster, toast } from "sonner";
 import { setUser } from "@/applications/UserSlice/UserSlice";
 
@@ -21,17 +20,9 @@ const page = () => {
 
   const dispatch = useDispatch();
   const username = useSelector((state: RootState) => state.inputValue.value);
-  const user = useSelector((state:RootState)=> state.userValue.user);
 
   const router = useRouter();
-  console.log({user});
 
-  useEffect(() => {
-    async function getUser() {
-      dispatch(setUser(await account.get()));
-    }
-    getUser();
-  }, []);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setInputValue(e.target.value));
@@ -40,8 +31,6 @@ const page = () => {
 
   async function handleLogin(e: FormEvent) {
     try {
-      await account.createEmailPasswordSession(email, password);
-      setUser(await account.get());
       router.push("/dashboard");
       setEmail("");
       setPassword("");
